@@ -3,8 +3,8 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   /* height: 100vh; */
-  min-width: 1002px;
-  max-width: 1002px;
+  min-width: 1010px;
+  max-width: 1010px;
   display: flex;
   justify-content: center;
   align-items: center;

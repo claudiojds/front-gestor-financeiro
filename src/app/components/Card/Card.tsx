@@ -6,7 +6,7 @@ interface Props {
 }
 export default function Card ({clasName, children}: Props) {
     return (
-        <div className={`border border-[#D9D9D9] ${clasName || ''}`}>
+        <div className={`rounded-md ${clasName || ''}`}>
             {children}
         </div>
     );
