@@ -1,40 +1,9 @@
-import Cabecalho from "@/app/components/Cabecalho/Cabecalho";
 import Card from "@/app/components/Card/Card";
-import Navegacao from "@/app/components/Navegacao/Navegacao";
-import NavMenu from "@/app/components/NavMenu/NavMenu";
+
 
 export default function Index() {
   return (
-    <div className=" w-full flex flex-col">
-      <Cabecalho>
-        <NavMenu>
-          <Navegacao
-            caminho="/entradas"
-            descricao="Entradas"
-            clasName="hover:bg-green-100"
-          />
-          <Navegacao
-            caminho="/saidas"
-            descricao="Saidas"
-            clasName="hover:bg-red-100"
-          />
-          <Navegacao
-            caminho="/poupanca"
-            descricao="Poupanca"
-            clasName="hover:bg-sky-100"
-          />
-          <Navegacao
-            caminho="/investimentos"
-            descricao="Investimentos"
-            clasName="hover:bg-yellow-100"
-          />
-          <Navegacao
-            caminho="/metas"
-            descricao="Criar Metas"
-            clasName="hover:bg-stone-200"
-          />
-        </NavMenu>
-      </Cabecalho>
+    <div>
       <div className="flex items-center justify-between p-5 gap-10 ">
         <Card clasName="h-130 w-100 flex flex-col justify-between p-2 gap-2">
           <Card clasName="h-17 flex flex-col p-1 gap-2 border border-[#D9D9D9]">
@@ -84,7 +53,7 @@ export default function Index() {
             </div>
           </Card>
           <Card clasName="h-17 flex flex-col p-1 gap-2 border border-[#D9D9D9]">
-            <h2>Saída</h2>           
+            <h2>Saídas</h2>           
             <div className="flex gap-2">
               <label htmlFor="saudo" className="w-42">
                 Saudo do mês anterior:
@@ -97,7 +66,7 @@ export default function Index() {
             </div>
           </Card>
           <Card clasName="h-25 flex flex-col p-1 gap-2 border border-[#D9D9D9]">
-            <h2>Investimento</h2>                       
+            <h2>Poupança</h2>                       
             <div className="flex gap-2">
               <label htmlFor="Total" className="w-42">
                 Total:
@@ -120,7 +89,7 @@ export default function Index() {
             </div>
           </Card>
           <Card clasName="h-25 flex flex-col p-1 gap-2 border border-[#D9D9D9]">
-            <h2>Poupança</h2>                       
+            <h2>Investimentos</h2>                       
             <div className="flex gap-2">
               <label htmlFor="Total" className="w-42">
                 Total:
@@ -152,7 +121,7 @@ export default function Index() {
             <h2>Metas</h2>
           </Card>
           <Card clasName="h-35 flex flex-col p-1 border border-[#D9D9D9]">
-            <h2>Observações</h2>
+            <h2>Plano de contas</h2>
           </Card>
         </Card>
       </div>
@@ -161,7 +130,7 @@ export default function Index() {
       </div>
       <div className="flex justify-between pt-5 pl-5">
         <Card clasName="h-55 w-[31%] flex flex-col gap-1 p-1 border border-[#D9D9D9]">
-          <h2 className="text-center">Grafico pizza %</h2>
+          <h2 className="text-center">Gráfico pizza %</h2>
           <ul>
             <li>Entradas</li>
             <li>Saídas</li>
@@ -179,21 +148,21 @@ export default function Index() {
           </ul>
         </Card>
         <Card clasName="h-55 w-[31%] flex flex-col gap-1 p-1 border border-[#D9D9D9]">
-          <h2 className="text-center">GRAFICO</h2>
+          <h2 className="text-center">OBSERVAÇÕES</h2>
           <ul>
-            <li>Investimentos</li>
+            {/* <li>Investimentos</li>
             <li>ou</li>
-            <li>Poupança</li>
+            <li>Poupança</li> */}
           </ul>
         </Card>
         <div></div>
       </div>
       <div className="flex items-center justify-between p-5">
         <Card clasName="h-55 w-112 flex flex-col gap-1 p-1 border border-[#D9D9D9]">
-          <h2 className="text-center">GRAFICO POUPANÇA</h2>
+          <h2 className="text-center">GRÁFICO POUPANÇA</h2>
         </Card>
         <Card clasName="h-55 w-112 flex flex-col gap-1 p-1 border border-[#D9D9D9]">
-          <h2 className="text-center">GRAFICO INVESTIMENTOS</h2>
+          <h2 className="text-center">GRÁFICO INVESTIMENTOS</h2>
         </Card>
       </div>
     </div>

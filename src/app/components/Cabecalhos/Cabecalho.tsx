@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
 
 type Props = {
+  titulo: string
   children?: ReactNode;
 };
 
-export default function Cabecalho({ children }: Props) {
+export default function Cabecalho({titulo, children }: Props) {
   return (
     <header className="flex flex-col items-centerl h-35 w-full bg-[#F0F0F0]">
       <div className="flex flex-col flex-1">
@@ -12,7 +13,7 @@ export default function Cabecalho({ children }: Props) {
           <button className="">theme</button>
         </div>
         <h1 className="text-center text-3xl font-bold">
-            Gestor Financeiro
+            {titulo}
         </h1>
       </div>
       {children}

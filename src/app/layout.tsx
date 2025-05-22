@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import CabecalhoNavegacao from "./components/Cabecalhos/CabecalhoNavegacao";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="w-full flex flex-wrap border-[#F0F0F0] border-x-30 border-b-30">
+          <div className=" w-full flex flex-col">
+            <CabecalhoNavegacao/>
+          </div>
+          <div className=" w-full flex flex-col">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
