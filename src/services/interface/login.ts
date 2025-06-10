@@ -1,6 +1,6 @@
 export interface Login {
     id: number;
-    nome: string;
     email: string;
+    passwordHash: string;
     ativo: boolean;
 };
