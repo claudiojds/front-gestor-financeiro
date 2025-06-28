@@ -23,7 +23,7 @@ httpInstance.interceptors.response.use(
   (res) => res,
   (error) => {
     console.error(
-      "Erro na requisição: \n",
+      "Erro na resposta: \n",
       error.response?.data || error.message
     );
     return Promise.reject(error);

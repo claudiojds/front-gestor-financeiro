@@ -1,6 +1,4 @@
-export interface Login {
-    id: number;
+export interface LoginInterface {
     email: string;
     passwordHash: string;
-    ativo: boolean;
 };

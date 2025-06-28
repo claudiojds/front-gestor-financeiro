@@ -1,24 +1,24 @@
-export interface CreateUser {
-    name: string;
-    password: string;
+export interface CreateUserInterface {
+    nome: string;
     email: string;
+    password: string;
 };
 
-export interface ListUsers {
+export interface ListUsersInterface {
     id: number;
-    name: string;
+    nome: string;
     email: string;
     active: boolean;
     createdAt: string;
 };
 
-export interface UpdateUser {
+export interface UpdateUserInterface {
     id?: number;
-    name?: string;
+    nome?: string;
     password?: string;
     email?: string;
 };
 
-export interface DeleteUser {
+export interface DeleteUserInterface {
     id: number;
 };

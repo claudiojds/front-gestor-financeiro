@@ -1,168 +1,114 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
-import axios from "axios";
+'use client';
 
-export default function LoginModal({
-  open,
-  onClose,
-  onLogin,
-}: {
-  open: boolean;
-  onClose: () => void;
-  onLogin: (user: any) => void;
-}) {
-  const [login, setLogin] = useState("");
-  const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
-  const [isRegister, setIsRegister] = useState(false);
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
+import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Login from "./Login";
 
-  // Resetar para login sempre que o modal for aberto
+export default function LoginModal() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [user, setUser] = useState<{ nome: string } | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
   useEffect(() => {
-    if (open) {
-      setIsRegister(false);
-      setError("");
-    }
-  }, [open]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    try {
-      if (isRegister) {
-        const res = await axios.post("http://localhost:3000/auth/register", {
-          nome,
-          email,
-          senha,
-        });
-        onLogin(res.data);
-        onClose();
-      } else {
-        const res = await axios.post("http://localhost:3000/auth/login", {
-          login,
-          senha,
-        });
-        onLogin(res.data);
-        onClose();
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        if (parsed && typeof parsed.nome === "string") {
+          setUser(parsed);
+        } else {
+          localStorage.removeItem("user");
+        }
+      } catch {
+        localStorage.removeItem("user");
       }
-    } catch {
-      setError(isRegister ? "Erro ao criar conta" : "Usuário ou senha inválidos");
+    }
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogin = (userData: any) => {
+    if (userData?.nome) {
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
     }
   };
 
-  if (!open) return null;
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+    setIsOpen(false);
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-      <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg border border-gray-200">
-        {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 rounded-t">
-          <h3 className="text-lg font-semibold text-gray-900">
-            {isRegister ? "Criar Conta" : "Login"}
-          </h3>
-          <button
-            onClick={() => {
-              setIsRegister(false); // Garante que o modal feche em modo login
-              onClose();
-            }}
-            className="text-gray-400 hover:text-gray-900 text-2xl font-bold focus:outline-none"
-            aria-label="Fechar"
-          >
-            &times;
-          </button>
-        </div>
+    <div className="relative inline-block text-left w-50" ref={menuRef}>
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="flex justify-between items-center px-4 py-2 text-sm font-medium text-[#252323] bg-transparent w-full cursor-pointer"
+      >
+        {user ? `Olá, ${user.nome}` : "Olá, faça seu login"}
+        <svg
+          className={`ml-2 h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.25 8.29a.75.75 0 01-.02-1.08z" />
+        </svg>
+      </button>
 
-        {/* Modal Body */}
-        <div className="px-6 py-6">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            {isRegister ? (
-              <>
-                <input
-                  type="text"
-                  placeholder="Nome"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                  className="form-input block w-full rounded border border-gray-300 px-3 py-2"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="form-input block w-full rounded border border-gray-300 px-3 py-2"
-                  required
-                />
-                <input
-                  type="password"
-                  placeholder="Senha"
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className="form-input block w-full rounded border border-gray-300 px-3 py-2"
-                  required
-                />
-              </>
-            ) : (
-              <>
-                <input
-                  type="text"
-                  placeholder="Nome ou Email"
-                  value={login}
-                  onChange={(e) => setLogin(e.target.value)}
-                  className="form-input block w-full rounded border border-gray-300 px-3 py-2"
-                  required
-                />
-                <input
-                  type="password"
-                  placeholder="Senha"
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className="form-input block w-full rounded border border-gray-300 px-3 py-2"
-                  required
-                />
-              </>
+      {isOpen && (
+        <div className="absolute right-0 z-10 mt-1 w-50 origin-top-right rounded-md bg-[rgba(143,139,139,0.75)] shadow-lg">
+          <div className="py-1">
+            {!user && (
+              <button
+                className="w-full px-4 py-2 text-sm text-left text-[#181515] hover:bg-[rgba(143,139,139,0.75)]"
+                onClick={() => {
+                  setModalOpen(true);
+                  setIsOpen(false);
+                }}
+              >
+                Logar
+              </button>
             )}
-            {error && <span className="text-red-500 text-sm">{error}</span>}
-            <button
-              type="submit"
-              className="w-full mt-2 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded"
-            >
-              {isRegister ? "Criar Conta" : "Entrar"}
-            </button>
-          </form>
-
-          <div className="mt-4 text-center">
-            {isRegister ? (
-              <span className="text-sm">
-                Já tem conta?{" "}
+            {user && (
+              <>
                 <button
-                  className="text-blue-600 underline"
+                  className="w-full px-4 py-2 text-sm text-left text-[#181515] hover:bg-[rgba(143,139,139,0.75)]"
                   onClick={() => {
-                    setIsRegister(false);
-                    setError("");
+                    setIsOpen(false);
+                    router.push("/index/configuracoes");
                   }}
                 >
-                  Fazer login
+                  Configurações
                 </button>
-              </span>
-            ) : (
-              <span className="text-sm">
-                Não tem conta?{" "}
                 <button
-                  className="text-blue-600 underline"
-                  onClick={() => {
-                    setIsRegister(true);
-                    setError("");
-                  }}
+                  className="w-full px-4 py-2 text-sm text-left text-[#181515] hover:bg-[rgba(143,139,139,0.75)]"
+                  onClick={handleLogout}
                 >
-                  Criar conta
+                  Sair
                 </button>
-              </span>
+              </>
             )}
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Modal com formulários de login/cadastro */}
+      <Login
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onLogin={handleLogin}
+      />
     </div>
   );
 }
