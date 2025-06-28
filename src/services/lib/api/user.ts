@@ -1,25 +1,28 @@
-import { type AxiosResponse } from "axios";
+// import { type AxiosResponse } from "axios";
 import httpInstance from "../instance/client";
 import { CreateUserInterface, DeleteUserInterface, ListUsersInterface, UpdateUserInterface } from "@/services/interface/user";
 
 
 // Listar usuários
-export const getUsersList = async (): Promise<AxiosResponse<ListUsersInterface[]>> => {
-    return httpInstance.get('users');
+export const getUsersList = async (): Promise<ListUsersInterface[]> => {
+  const { data } = await httpInstance.get<ListUsersInterface[]>("/users");
+  return data;
 };
 
-//Criar Usuário
-export const createUser = async (data: CreateUserInterface): Promise<AxiosResponse<CreateUserInterface>> => {
-    return httpInstance.post('users/create', data);
+// Criar Usuário
+export const createUser = async (data: CreateUserInterface): Promise<CreateUserInterface> => {
+  const response = await httpInstance.post<CreateUserInterface>('users/create', data);
+  return response.data;
 };
 
-// update
-export const updateUser = async (id: number, data: UpdateUserInterface): Promise<AxiosResponse<UpdateUserInterface>> => {
-    return httpInstance.patch(`users/update/${id}`, data);
+// Atualizar Usuário
+export const updateUser = async (id: number, data: UpdateUserInterface): Promise<UpdateUserInterface> => {
+  const response = await httpInstance.patch<UpdateUserInterface>(`users/update/${id}`, data);
+  return response.data;
 };
 
-
-// delete 
-export const deleteUser = async (id: number): Promise<AxiosResponse<DeleteUserInterface>> => {
-    return httpInstance.delete(`users/delete/${id}`)
-}
+// Deletar Usuário
+export const deleteUser = async (id: number): Promise<DeleteUserInterface> => {
+  const response = await httpInstance.delete<DeleteUserInterface>(`users/delete/${id}`);
+  return response.data;
+};

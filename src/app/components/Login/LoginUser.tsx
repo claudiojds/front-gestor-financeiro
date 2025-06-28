@@ -23,9 +23,8 @@ export default function LoginUser({ onSuccess }: { onSuccess: (user: any) => voi
         passwordHash: login.passwordHash,
       });
 
-      onSuccess(user.data);
-      alert("Usuário logado com sucesso!");
-      console.log("Req: \n", userLogin);
+      onSuccess(user);
+      console.log("Req: \n", user);
       setLogin({ email: "", passwordHash: "" });
     } catch (error: any) {
         const message = error?.response?.data.message || error?.message

@@ -16,27 +16,28 @@ export default function CreateUser({ onSuccess }: { onSuccess: () => void }) {
   };
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      await createUser({
-        nome: creat.nome,
-        email: creat.email,
-        password: creat.password,
-      });
+  try {
+    // Aqui você recebe só os dados do usuário criado
+    const userCreated = await createUser({
+      nome: creat.nome,
+      email: creat.email,
+      password: creat.password,
+    });
 
-      onSuccess();
-      alert("Usuário logado com sucesso!");
-      console.log("Req: \n", createUser);
-      setCreat({ nome: "", email: "", password: "" });
-    } catch (error: any) {
-      console.log("Erro na resposta:", error?.response?.data);
-      const message = Array.isArray(error?.response?.data?.message)
-        ? error.response.data.message.join('\n')
-        : error?.response?.data?.message || error?.message;
-     alert(`Erro ao tentar criar usuário!\n${message}`);
-    };
-  };
+    onSuccess();
+    alert("Usuário criado com sucesso!");
+    console.log("Usuário criado:", userCreated);
+    setCreat({ nome: "", email: "", password: "" });
+  } catch (error: any) {
+    console.log("Erro na resposta:", error?.response?.data);
+    const message = Array.isArray(error?.response?.data?.message)
+      ? error.response.data.message.join('\n')
+      : error?.response?.data?.message || error?.message;
+    alert(`Erro ao tentar criar usuário!\n${message}`);
+  }
+}
 
   return (
     <form

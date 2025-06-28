@@ -49,7 +49,6 @@ export default function Login({
           {isRegister ? (
             <CreateUser
               onSuccess={() => {
-                alert('Usuário criado com sucesso!');
                 setIsRegister(false);
               }}
             />
