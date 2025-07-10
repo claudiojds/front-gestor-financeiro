@@ -1,5 +1,5 @@
 'use client';
-import Card from "@/app/components/Card/Card";
+import Card from "../../components/Card/Card";
 
 export default function Index() {
   return (

@@ -3,9 +3,9 @@ import httpInstance from "../instance/client";
 import { LoginInterface } from "@/services/interface/login";
 
 
-// Listar usuários
-export const userLogin = async (data: LoginInterface): Promise<LoginInterface> => {
-    const response = await httpInstance.post<LoginInterface>('login', data);
+export const userLogin = async (data: LoginInterface): Promise<{token: string}> => {
+    const response = await httpInstance.post('login', data);
+    console.log("Resposta da requisição: ", response.data)
     return response.data
 };
 

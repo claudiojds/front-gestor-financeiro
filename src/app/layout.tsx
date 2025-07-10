@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         <div className="w-full flex flex-wrap border-[#F0F0F0] border-x-30 border-b-30">
           <div className=" w-full flex flex-col">
-            <CabecalhoNavegacao/>
+            <CabecalhoNavegacao />
           </div>
           <div className=" w-full flex flex-col">
             {children}
