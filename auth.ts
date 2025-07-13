@@ -39,6 +39,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 
+   // Configurações de sessão
+  session: {
+    strategy: "jwt", 
+    maxAge: 30 * 60, // 30 minutos em segundos
+  },
+
+  // Configurações JWT (se usando estratégia JWT)
+  jwt: {
+    maxAge: 30 * 60, // 30 minutos em segundos
+  },
+ cookies: {
+  sessionToken: {
+    name: process.env.NODE_ENV === "production" 
+      ? "__Secure-authjs.session-token" 
+      : "authjs.session-token",
+    options: {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 30 * 60, // 30 minutos
+    },
+  },
+},
+
   // Primeiro salva o token na JWT interna do NextAuth
   callbacks: {
    async jwt({ token, user }) {
@@ -46,6 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.accessToken = (user as any).token;
         token.nome = (user as any).nome;
         token.id = (user as any).id
+        token.exp = Math.floor(Date.now() / 1000) + 30 * 60; // Força expiração em 30 minutos
       }
       return token;
     },
