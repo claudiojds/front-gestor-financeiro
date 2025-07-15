@@ -1,10 +1,53 @@
 'use client';
 
+import ButtonSubmit from "@/app/components/FormComponents/Buttons/ButtonSubmit";
+import FormGestor from "@/app/components/FormComponents/Forms/FormGestor";
+import InputForm from "@/app/components/FormComponents/Inputs/InputForm";
+import LabelForm from "@/app/components/FormComponents/Labels/LabelsForm";
+import SelctForm from "@/app/components/FormComponents/Dropdowm/SelectForm";
+
 export default function Entradas() {
   return (
-    <div>
-      <h1>Entradas</h1>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque veniam voluptatibus adipisci magni enim recusandae ullam dolores, maiores alias nulla eveniet doloribus ipsam quia excepturi possimus iusto fugit consectetur, ex, id fugiat a. Dolore tenetur suscipit eaque dignissimos minima facere magnam fugiat in, quae temporibus unde aut dolor fugit, itaque voluptas earum sed dicta mollitia! Temporibus unde possimus soluta quisquam qui, optio deserunt vel. Dolorum dolore est iste sed minima? Doloremque tenetur facilis sequi magni officiis sed quos alias enim eaque molestias, repellat voluptas eos, consectetur dolor non architecto distinctio dignissimos qui hic illo tempora a ex! Autem, molestias velit!</p>
+    <div className="flex flex-col gap-3 p-2">
+      {/* Criar tipo entrada */}
+       <FormGestor
+        clasName="border-b-2 border-gray-300"
+      >
+        <LabelForm
+          htmlFor="tipo-entrada"
+          classNama="" 
+          description="Criar tipo de entrada: "        
+        />
+        <InputForm
+          type="text"
+          placeholder="Digite o tipo de entrada"
+          className="w-15 "
+        />
+
+        <ButtonSubmit
+         className="w-40"
+         description="Adicionar"
+        />
+      </FormGestor>
+      
+      {/* Adicionar entrada */}
+      <FormGestor
+        clasName=" "
+      >
+        <div className="flex gap-2">
+          <SelctForm
+            nome="Tipo-entrada"
+            className=""
+          />
+
+          <InputForm
+            type="text"
+            placeholder="Digite o valor"
+            className="w-15 "    
+          />
+        </div>
+        
+      </FormGestor>
     </div>
   );
 }
