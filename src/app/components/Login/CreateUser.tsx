@@ -1,7 +1,7 @@
 "use client";
 
 import { CreateUserInterface } from "@/services/interface/user";
-import { createUser } from "@/services/lib/api/user";
+import { createUser } from "@/services/lib/api/user/user";
 import React, { useState } from "react";
 
 export default function CreateUser({ onSuccess }: { onSuccess: () => void }) {

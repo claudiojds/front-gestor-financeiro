@@ -1,5 +1,5 @@
 import { DecodedTokenInterface } from "@/services/interface/DecodedToken";
-import { userLogin } from "@/services/lib/api/login";
+import { userLogin } from "@/services/lib/api/user/login";
 import { jwtDecode } from "jwt-decode";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";

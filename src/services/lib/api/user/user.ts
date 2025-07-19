@@ -1,5 +1,5 @@
 // import { type AxiosResponse } from "axios";
-import httpInstance from "../instance/client";
+import httpInstance from "../../instance/client";
 import { CreateUserInterface, DeleteUserInterface, ListUsersInterface, UpdateUserInterface } from "@/services/interface/user";
 
 

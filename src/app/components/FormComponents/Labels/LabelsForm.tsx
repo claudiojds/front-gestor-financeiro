@@ -10,7 +10,7 @@ export default function LabelForm({description, htmlFor, classNama}: Props ){
     return (
         <label 
             htmlFor={htmlFor}
-            className={` w-40 h-10.5 flex justify-center items-center rounded  ${classNama || ""}`}
+            className={` w-40 h-10.5 flex  items-center rounded  ${classNama || ""}`}
         >
             {description}
         </label>

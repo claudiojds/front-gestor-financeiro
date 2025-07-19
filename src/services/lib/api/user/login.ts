@@ -1,5 +1,5 @@
 // import { type AxiosResponse } from "axios";
-import httpInstance from "../instance/client";
+import httpInstance from "../../instance/client";
 import { LoginInterface } from "@/services/interface/login";
 
 
