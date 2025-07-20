@@ -5,7 +5,9 @@ export interface CreateTipoEntradaInterface {
 };
 
 export interface ListTipoEntradaInterface {
-    idUsuario: number
+    descricao: any;
+    id: any;
+    idUsuario?: number
 };
 
 export interface UpdateTipoEntradaInterface {
